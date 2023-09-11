@@ -3,9 +3,9 @@ import java.util.Scanner;
 
 public class Morpion {
     private static boolean PlayerTurn;
+    private static boolean player1V, player2V, tie;
 
     public static void main(String[] args) {
-        boolean player1V, player2V, tie;
         player1V = false;
         player2V = false;
         tie = false;
@@ -17,27 +17,15 @@ public class Morpion {
 
 
         do {
-            System.out.println(tab[0][0] + " | " + tab[0][1]+ " | " + tab[0][2] +
-                    " \n" + tab[1][0] + " | " + tab[1][1]+ " | " + tab[1][2] +
-                    "\n" + tab[2][0] + " | " + tab[2][1]+ " | " + tab[2][2]);
+            displayTab(tab);
 
             Turn(tab, sc);
 
 
-            if ((tab[0][0] + tab[0][1] + tab[0][2]).equals("xxx") ||(tab[1][0] + tab[1][1] + tab[1][2]).equals("xxx")||(tab[2][0] + tab[2][1] + tab[2][2]).equals("xxx") ||
-            (tab[0][0] + tab[1][0] + tab[1][0]).equals("xxx") ||(tab[0][1] + tab[1][1] + tab[2][1]).equals("xxx")||(tab[0][2] + tab[1][2] + tab[2][2]).equals("xxx")
-            || (tab[0][0] + tab[1][1] + tab[2][2]).equals("xxx") || (tab[0][2] + tab[1][1] + tab[2][0]).equals("xxx")){
-                player1V = true;
-                System.out.println("P1 win");
-            }
-            if ((tab[0][0] + tab[0][1] + tab[0][2]).equals("ooo") ||(tab[1][0] + tab[1][1] + tab[1][2]).equals("ooo")||(tab[2][0] + tab[2][1] + tab[2][2]).equals("ooo") ||
-                    (tab[0][0] + tab[1][0] + tab[1][0]).equals("ooo") ||(tab[0][1] + tab[1][1] + tab[2][1]).equals("ooo")||(tab[0][2] + tab[1][2] + tab[2][2]).equals("ooo")
-                    || (tab[0][0] + tab[1][1] + tab[2][2]).equals("ooo") || (tab[0][2] + tab[1][1] + tab[2][0]).equals("ooo")){
+            victoryReached(tab, "xxx");
+            victoryReached(tab, "ooo");
 
 
-                player2V = true;
-                System.out.println("P2 win");
-            }
 
             int i = 0;
             for (String[] l:tab) {
@@ -53,10 +41,39 @@ public class Morpion {
                 tie = true;
             }
 
-
         } while (!(player1V || player2V || tie));
 
 
+    }
+
+    public static void displayTab(String[][] tab){
+        String displayed ="";
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                    displayed += tab[i][j] + " | ";
+            }
+            displayed += " \n ";
+
+        }
+        System.out.println(displayed);
+    }
+    public static void victoryReached(String[][] tab, String shape){
+        if ((tab[0][0] + tab[0][1] + tab[0][2]).equals(shape) ||(tab[1][0] + tab[1][1] + tab[1][2]).equals(shape)||(tab[2][0] + tab[2][1] + tab[2][2]).equals(shape) ||
+                (tab[0][0] + tab[1][0] + tab[2][0]).equals(shape) ||(tab[0][1] + tab[1][1] + tab[2][1]).equals(shape)||(tab[0][2] + tab[1][2] + tab[2][2]).equals(shape)
+                || (tab[0][0] + tab[1][1] + tab[2][2]).equals(shape) || (tab[0][2] + tab[1][1] + tab[2][0]).equals(shape)){
+
+           if(shape.equals("xxx")){
+               player1V = true;
+               System.out.println("P1 win");
+           } else if (shape.equals("ooo")){
+               player2V = true;
+               System.out.println("P2 win");
+           } else{
+               System.out.println("Shape not recognized");
+           }
+
+
+        }
     }
 
     public static void Turn(String[][] tab,Scanner sc){
