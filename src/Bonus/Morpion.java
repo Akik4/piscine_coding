@@ -1,4 +1,5 @@
-import java.util.Arrays;
+package Bonus;
+
 import java.util.Scanner;
 
 public class Morpion {
@@ -47,10 +48,14 @@ public class Morpion {
     }
 
     public static void displayTab(String[][] tab){
-        String displayed ="";
+        String displayed = " ";
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
+                if(tab[i][j] == null){
+                    displayed += "  | ";
+                } else {
                     displayed += tab[i][j] + " | ";
+                }
             }
             displayed += " \n ";
 
