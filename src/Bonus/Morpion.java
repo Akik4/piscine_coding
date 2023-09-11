@@ -4,16 +4,13 @@ import java.util.Scanner;
 
 public class Morpion {
     private static boolean gameRunning, tie, PlayerTurn;
-
     public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String[][] tab = new String[3][3];
+
         gameRunning = true;
         tie = false;
         PlayerTurn = true;
-        Scanner sc = new Scanner(System.in);
-
-
-        String[][] tab = new String[3][3];
-
 
         do {
             displayTab(tab);
@@ -21,21 +18,19 @@ public class Morpion {
             Turn(tab, sc);
 
         } while (!(!gameRunning || tie));
-
-
     }
 
     public static void displayTab(String[][] tab){
-        String displayed = " ";
+        StringBuilder displayed = new StringBuilder(" 0 | 1 | 2 \n ");
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 if(tab[i][j] == null){
-                    displayed += "  | ";
+                    displayed.append("  | ");
                 } else {
-                    displayed += tab[i][j] + " | ";
+                    displayed.append(tab[i][j]).append(" | ");
                 }
             }
-            displayed += " \n ";
+            displayed.append(i + " \n ");
 
         }
         System.out.println(displayed);
@@ -102,8 +97,6 @@ public class Morpion {
             System.out.println("Please provide a number between 0 and 2");
             return;
         }
-
-
 
         if(PlayerTurn) {
             if (tab[r][c] != null){
