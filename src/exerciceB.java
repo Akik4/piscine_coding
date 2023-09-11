@@ -15,22 +15,6 @@ public class exerciceB {
             System.out.println("La variable b est plus grande que la variable A et C");
         }
 
-        int timeA;
-        timeA = -3*-3;
 
-        if (timeA > 0){
-            System.out.println("Le résultat de la multiplcation est positif");
-        } else {
-            System.out.println("Le résultat de la multiplication est négatif");
-        }
-
-
-        int age;
-        age = 18;
-        if (age >= 18){
-            System.out.println("la personne est majeur");
-        } else {
-            System.out.println("La personne est mineur");
-        }
     }
 }
