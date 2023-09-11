@@ -3,11 +3,10 @@ package Bonus;
 import java.util.Scanner;
 
 public class Morpion {
-    private static boolean PlayerTurn;
-    private static boolean gameRunning, tie;
+    private static boolean gameRunning, tie, PlayerTurn;
 
     public static void main(String[] args) {
-        gameRunning = false;
+        gameRunning = true;
         tie = false;
         PlayerTurn = true;
         Scanner sc = new Scanner(System.in);
@@ -21,7 +20,7 @@ public class Morpion {
 
             Turn(tab, sc);
 
-        } while (!(gameRunning|| tie));
+        } while (!(!gameRunning || tie));
 
 
     }
@@ -42,18 +41,18 @@ public class Morpion {
         System.out.println(displayed);
     }
 
-    public static void checkArround(String[][] tab, int raw, int columns, String shape) {
+    public static void checkArround(String[][] tab, String shape) {
         for (int i = 0; i < 3; i++) {
-            if (tab[1][i] == shape && tab[0][i] == shape&& tab[2][i] == shape) {
+            if (tab[1][i] == shape && tab[0][i] == shape && tab[2][i] == shape) {
                 System.out.println(shape + " win");
-                gameRunning = true;
+                gameRunning = false;
             }
         }
 
         for (int i = 0; i < 3; i++) {
             if (tab[i][0] == shape && tab[i][1] == shape&& tab[i][2] == shape) {
                 System.out.println(shape + " win");
-                gameRunning = true;
+                gameRunning = false;
             }
         }
 
@@ -61,12 +60,12 @@ public class Morpion {
                 if (tab[0][0] != null && tab[2][2] != null) {
                     if (tab[1][1].equals(shape) && tab[0][0].equals(shape) && tab[2][2].equals(shape)) {
                         System.out.println(shape + " win");
-                        gameRunning = true;
+                        gameRunning = false;
                     }
                 } else if (tab[0][2] != null && tab[2][0] != null) {
                     if (tab[0][2].equals(shape) && tab[0][0].equals(shape) && tab[2][0].equals(shape)) {
                         System.out.println(shape + " win");
-                        gameRunning = true;
+                        gameRunning = false;
                     }
                 }
             }
@@ -91,7 +90,7 @@ public class Morpion {
         } else{
             player = "P2";
         }
-        System.out.println(player + " Wich raw you want ?");
+        System.out.println(player + " Wich row you want ?");
         int r = sc.nextInt();
         if ( r > 2 | r < 0){
             System.out.println("Please provide a number between 0 and 2");
@@ -112,7 +111,7 @@ public class Morpion {
             } else{
                 PlayerTurn = false;
                 tab[r][c] = "x";
-                checkArround(tab, r, c, "x");
+                checkArround(tab, "x");
             }
         } else {
             if (tab[r][c] != null){
@@ -120,7 +119,7 @@ public class Morpion {
             } else{
                 PlayerTurn = true;
                 tab[r][c] = "o";
-                checkArround(tab, r, c, "o");
+                checkArround(tab, "o");
 
             }
         }
