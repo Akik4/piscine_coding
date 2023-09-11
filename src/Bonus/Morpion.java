@@ -4,11 +4,10 @@ import java.util.Scanner;
 
 public class Morpion {
     private static boolean PlayerTurn;
-    private static boolean player1V, player2V, tie;
+    private static boolean gameRunning, tie;
 
     public static void main(String[] args) {
-        player1V = false;
-        player2V = false;
+        gameRunning = false;
         tie = false;
         PlayerTurn = true;
         Scanner sc = new Scanner(System.in);
@@ -22,27 +21,7 @@ public class Morpion {
 
             Turn(tab, sc);
 
-
-            victoryReached(tab, "xxx");
-            victoryReached(tab, "ooo");
-
-
-
-            int i = 0;
-            for (String[] l:tab) {
-                for (String sl:l){
-                    if(sl != null){
-                        i +=1;
-                    }
-                }
-            }
-
-            if (i == 9){
-                System.out.println("Tie");
-                tie = true;
-            }
-
-        } while (!(player1V || player2V || tie));
+        } while (!(gameRunning|| tie));
 
 
     }
@@ -62,25 +41,49 @@ public class Morpion {
         }
         System.out.println(displayed);
     }
-    public static void victoryReached(String[][] tab, String shape){
-        if ((tab[0][0] + tab[0][1] + tab[0][2]).equals(shape) ||(tab[1][0] + tab[1][1] + tab[1][2]).equals(shape)||(tab[2][0] + tab[2][1] + tab[2][2]).equals(shape) ||
-                (tab[0][0] + tab[1][0] + tab[2][0]).equals(shape) ||(tab[0][1] + tab[1][1] + tab[2][1]).equals(shape)||(tab[0][2] + tab[1][2] + tab[2][2]).equals(shape)
-                || (tab[0][0] + tab[1][1] + tab[2][2]).equals(shape) || (tab[0][2] + tab[1][1] + tab[2][0]).equals(shape)){
 
-           if(shape.equals("xxx")){
-               player1V = true;
-               System.out.println("P1 win");
-           } else if (shape.equals("ooo")){
-               player2V = true;
-               System.out.println("P2 win");
-           } else{
-               System.out.println("Shape not recognized");
-           }
+    public static void checkArround(String[][] tab, int raw, int columns, String shape) {
+        for (int i = 0; i < 3; i++) {
+            if (tab[1][i] == shape && tab[0][i] == shape&& tab[2][i] == shape) {
+                System.out.println(shape + " win");
+                gameRunning = true;
+            }
+        }
 
+        for (int i = 0; i < 3; i++) {
+            if (tab[i][0] == shape && tab[i][1] == shape&& tab[i][2] == shape) {
+                System.out.println(shape + " win");
+                gameRunning = true;
+            }
+        }
 
+            if (tab[1][1] != null) {
+                if (tab[0][0] != null && tab[2][2] != null) {
+                    if (tab[1][1].equals(shape) && tab[0][0].equals(shape) && tab[2][2].equals(shape)) {
+                        System.out.println(shape + " win");
+                        gameRunning = true;
+                    }
+                } else if (tab[0][2] != null && tab[2][0] != null) {
+                    if (tab[0][2].equals(shape) && tab[0][0].equals(shape) && tab[2][0].equals(shape)) {
+                        System.out.println(shape + " win");
+                        gameRunning = true;
+                    }
+                }
+            }
+        int i = 0;
+        for (String[] l:tab) {
+            for (String sl:l){
+                if(sl != null){
+                    i +=1;
+                }
+            }
+        }
+
+        if (i == 9){
+            System.out.println("Tie");
+            tie = true;
         }
     }
-
     public static void Turn(String[][] tab,Scanner sc){
         String player;
         if(PlayerTurn){
@@ -109,6 +112,7 @@ public class Morpion {
             } else{
                 PlayerTurn = false;
                 tab[r][c] = "x";
+                checkArround(tab, r, c, "x");
             }
         } else {
             if (tab[r][c] != null){
@@ -116,6 +120,7 @@ public class Morpion {
             } else{
                 PlayerTurn = true;
                 tab[r][c] = "o";
+                checkArround(tab, r, c, "o");
 
             }
         }
