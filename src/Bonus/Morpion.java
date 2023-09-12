@@ -98,23 +98,19 @@ public class Morpion {
             return;
         }
 
+        if (tab[r][c] != null){
+            System.out.println("Case already played");
+            return;
+        }
         if(PlayerTurn) {
-            if (tab[r][c] != null){
-                System.out.println("Case already played");
-            } else{
                 PlayerTurn = false;
                 tab[r][c] = "x";
                 checkArround(tab, "x");
-            }
         } else {
-            if (tab[r][c] != null){
-                System.out.println("Case already played");
-            } else{
-                PlayerTurn = true;
-                tab[r][c] = "o";
-                checkArround(tab, "o");
-
+            PlayerTurn = true;
+            tab[r][c] = "o";
+            checkArround(tab, "o");
             }
         }
-    }
 }
+

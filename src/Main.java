@@ -3,7 +3,18 @@
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello Codding Factory!");
-
+        String test = "9";
+        switch (test){
+            case "6" :
+                System.out.println("Le résultat est 9");
+                break;
+            case "9" :
+                System.out.println("Test réussi");
+                break;
+            default:
+                System.out.println("Défaut");
+                break;
+        }
     }
 
 }
